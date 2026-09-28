@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: nexagic-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - NEXAGIC_MODEL=${NEXAGIC_MODEL:-claude-3-5-sonnet-20241022}
+      - TAVILY_API_KEY=${TAVILY_API_KEY:-}
+      - SEARCH_PROVIDER=${SEARCH_PROVIDER:-tavily}
+      - MAX_AGENT_STEPS=${MAX_AGENT_STEPS:-8}
+      - MAX_AGENT_STEPS_DEEP=${MAX_AGENT_STEPS_DEEP:-15}
+      - DATABASE_URL=sqlite+aiosqlite:///./data/nexagic.db
+      - CORS_ORIGINS=["http://localhost:3000","http://127.0.0.1:3000"]
+    volumes:
+      - nexagic_data:/app/data
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_API_URL=http://localhost:8000
+    container_name: nexagic-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  nexagic_data:
