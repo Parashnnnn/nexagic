@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NexAgic ⚡
+### Autonomous Real-Time AI Research Agent & Chatbot
 
-## Getting Started
+NexAgic is an enterprise-grade AI research agent designed like a fusion of Perplexity and ChatGPT. Unlike typical chatbots limited by static training cutoff dates, NexAgic actively searches the live web, fetches and extracts deep article content, cross-verifies claims across independent sources, and synthesizes answers with interactive, verified citations `[1]`.
 
-First, run the development server:
+The complete project codebase is arranged in [`backend/`](./backend/) and [`frontend/`](./frontend/).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## 🏗️ Architecture Diagram
+
+```mermaid
+flowchart TD
+    subgraph Frontend["Frontend (Next.js 15 + TypeScript + Tailwind)"]
+        UI["Chatbot UI & Empty State"]
+        Input["Mode Pill Switcher (Quick / Deep)"]
+        Activity["Live Agent Activity Drawer"]
+        Markdown["Streaming Markdown & Citation Chips [1]"]
+        Sources["Verified Sources Panel"]
+    end
+
+    subgraph Backend["Backend (FastAPI + Async Python 3.11+)"]
+        API["FastAPI /api/chat/stream"]
+        RateLimit["Sliding Window Rate Limiter"]
+        Agent["ReAct Agent Loop (loop.py)"]
+        Prompts["System Prompts & Injection Defense"]
+        DB[(SQLite / PostgreSQL + SQLAlchemy)]
+    end
+
+    subgraph Tools["Agent Tools & Services"]
+        SearchProv["SearchProvider (Tavily / DDG Fallback)"]
+        Fetcher["PageFetcher (SSRF Block + Trafilatura)"]
+        Calc["Safe AST Calculator"]
+        DateTime["Current Temporal Anchor"]
+    end
+
+    subgraph External["External APIs & Live Internet"]
+        Claude["Anthropic Claude API (Native Tool Use)"]
+        Tavily["Tavily Search API"]
+        Web["Live Web Endpoints"]
+    end
+
+    Input --> UI
+    UI -->|SSE Request| API
+    API --> RateLimit
+    RateLimit --> Agent
+    Agent --> Prompts
+    Agent <--> Claude
+    Agent --> Tools
+    SearchProv <--> Tavily
+    SearchProv <--> Web
+    Fetcher <--> Web
+    Agent -->|Stream Status, Tool Calls, Tokens, Sources| API
+    API -->|SSE Events| Activity
+    API -->|SSE Events| Markdown
+    API -->|SSE Events| Sources
+    API --> DB
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Quick Run Commands
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 1. Start the Backend:
+```powershell
+cd backend
+.\.venv\Scripts\python.exe -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+```
 
-## Learn More
+### 2. Start the Frontend:
+```powershell
+cd frontend
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Visit **`http://localhost:3000`** in your browser!
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🧪 Test Commands
 
-## Deploy on Vercel
+### Backend Tests (14 passing tests):
+```powershell
+cd backend
+.\.venv\Scripts\python.exe -m pytest tests -v
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Frontend Tests (Vitest 3 passing tests):
+```powershell
+cd frontend
+npx vitest run
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
