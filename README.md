@@ -1,22 +1,58 @@
-Here is the rewritten README.md with a premium, high-performance design aesthetic. It uses advanced Markdown formatting, badges, clear visual hierarchy, and professional documentation standards suitable for an enterprise-grade AI project.🚀 NexAgic ⚡Autonomous Real-Time AI Research Agent & Chatbot
+Here is the updated README.md with the image placeholder integrated into the header section.Note: Since I cannot see the actual file Screenshot Snap.png you mentioned, I have set the image path to ./assets/Screenshot Snap.png.
 
-Warning: This is not a standard chatbot. NexAgic is an active research agent that bypasses static knowledge cutoffs by executing live web searches, extracting full-page content, cross-verifying facts across multiple independent sources, and synthesizing answers with verified, interactive citations.
+Create a folder named assets in your project root.
 
-🌌 OverviewNexAgic is an enterprise-grade AI system architected as a fusion of Perplexity's real-time search capabilities and ChatGPT's conversational fluency.Built for researchers, analysts, and developers who require verifiable truth over hallucinated fiction.🔥 Core Capabilities
+Place your screenshot there and rename it to Screenshot Snap.png (or update the path in the README below to match your file location).
 
-🔍 Live Internet Access: Executes real-time searches via Tavily/Brave/SerpAPI.
+MarkdownCopied!Copy# 🚀 NexAgic ⚡
 
-📄 Deep Content Extraction: Fetches and parses full articles using trafilatura, ignoring paywalls and clutter.
+### **Autonomous Real-Time AI Research Agent & Chatbot**
 
-✅ Multi-Source Verification: Cross-checks claims against ≥2 independent sources before synthesis.
+> **Warning:** This is not a standard chatbot. NexAgic is an **active research agent** that bypasses static knowledge cutoffs by executing live web searches, extracting full-page content, cross-verifying facts across multiple independent sources, and synthesizing answers with **verified, interactive citations** `[1]`.
 
-📜 Verified Citations: Every factual claim is anchored to a source with inline [1] citations.
+![Status](https://img.shields.io/badge/status-production_ready-blue?style=for-the-badge)
 
-⚡ Real-Time Streaming: SSE-based streaming of agent thoughts, tool usage, and final answers.
+![License](https://img.shields.io/badge/license-MIT-red?style=for-the-badge)
 
-🛡️ Enterprise Security: SSRF protection, prompt injection defense, and strict input validation.
+![Python](https://img.shields.io/badge/Python-3.11+-blue?style=for-the-badge&logo=python)
 
-🏗️ System ArchitectureMermaidCopied!Copyflowchart TD
+![Node](https://img.shields.io/badge/Node-18+-green?style=for-the-badge&logo=node.js)
+
+![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)
+
+![NexAgic Interface Preview](./assets/Screenshot%20Snap.png)
+
+> *NexAgic Interface: Real-time agent activity monitoring with verified source citations.*
+
+---
+
+## 🌌 Overview
+
+**NexAgic** is an enterprise-grade AI system architected as a fusion of **Perplexity's** real-time search capabilities and **ChatGPT's** conversational fluency. 
+
+Built for researchers, analysts, and developers who require **verifiable truth** over hallucinated fiction.
+
+### 🔥 Core Capabilities
+
+- **🔍 Live Internet Access**: Executes real-time searches via Tavily/Brave/SerpAPI.
+
+- **📄 Deep Content Extraction**: Fetches and parses full articles using `trafilatura`, ignoring paywalls and clutter.
+
+- **✅ Multi-Source Verification**: Cross-checks claims against ≥2 independent sources before synthesis.
+
+- **📜 Verified Citations**: Every factual claim is anchored to a source with inline `[1]` citations.
+
+- **⚡ Real-Time Streaming**: SSE-based streaming of agent thoughts, tool usage, and final answers.
+
+- **🛡️ Enterprise Security**: SSRF protection, prompt injection defense, and strict input validation.
+
+---
+
+## 🏗️ System Architecture
+
+```mermaid
+
+flowchart TD
 
     subgraph Frontend["🖥️ Frontend (Next.js 15 + TypeScript + Tailwind)"]
 
@@ -165,3 +201,5 @@ Disclaimer: NexAgic accesses real-time information from the open internet. While
 <div align="center">🚀 Ready to deploy the future of AI research?Report Bug · Request Feature · View DocumentationBuilt with ❤️ by the NexAgic Team
 
 Last Updated: September 28, 2026</div>
+
+```
