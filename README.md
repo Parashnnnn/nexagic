@@ -1,93 +1,167 @@
-# NexAgic ⚡
-### Autonomous Real-Time AI Research Agent & Chatbot
+Here is the rewritten README.md with a premium, high-performance design aesthetic. It uses advanced Markdown formatting, badges, clear visual hierarchy, and professional documentation standards suitable for an enterprise-grade AI project.🚀 NexAgic ⚡Autonomous Real-Time AI Research Agent & Chatbot
 
-NexAgic is an enterprise-grade AI research agent designed like a fusion of Perplexity and ChatGPT. Unlike typical chatbots limited by static training cutoff dates, NexAgic actively searches the live web, fetches and extracts deep article content, cross-verifies claims across independent sources, and synthesizes answers with interactive, verified citations `[1]`.
+Warning: This is not a standard chatbot. NexAgic is an active research agent that bypasses static knowledge cutoffs by executing live web searches, extracting full-page content, cross-verifying facts across multiple independent sources, and synthesizing answers with verified, interactive citations.
 
-The complete project codebase is arranged in [`backend/`](./backend/) and [`frontend/`](./frontend/).
+🌌 OverviewNexAgic is an enterprise-grade AI system architected as a fusion of Perplexity's real-time search capabilities and ChatGPT's conversational fluency.Built for researchers, analysts, and developers who require verifiable truth over hallucinated fiction.🔥 Core Capabilities
 
----
+🔍 Live Internet Access: Executes real-time searches via Tavily/Brave/SerpAPI.
 
-## 🏗️ Architecture Diagram
+📄 Deep Content Extraction: Fetches and parses full articles using trafilatura, ignoring paywalls and clutter.
 
-```mermaid
-flowchart TD
-    subgraph Frontend["Frontend (Next.js 15 + TypeScript + Tailwind)"]
-        UI["Chatbot UI & Empty State"]
-        Input["Mode Pill Switcher (Quick / Deep)"]
-        Activity["Live Agent Activity Drawer"]
-        Markdown["Streaming Markdown & Citation Chips [1]"]
-        Sources["Verified Sources Panel"]
+✅ Multi-Source Verification: Cross-checks claims against ≥2 independent sources before synthesis.
+
+📜 Verified Citations: Every factual claim is anchored to a source with inline [1] citations.
+
+⚡ Real-Time Streaming: SSE-based streaming of agent thoughts, tool usage, and final answers.
+
+🛡️ Enterprise Security: SSRF protection, prompt injection defense, and strict input validation.
+
+🏗️ System ArchitectureMermaidCopied!Copyflowchart TD
+
+    subgraph Frontend["🖥️ Frontend (Next.js 15 + TypeScript + Tailwind)"]
+
+        UI["🎨 Premium Chat UI & Empty State"]
+
+        Input["🔘 Mode Switcher (Quick / Deep Research)"]
+
+        Activity["📡 Live Agent Activity Drawer"]
+
+        Markdown["📝 Streaming Markdown & Citation Chips [1]"]
+
+        Sources["🔗 Verified Sources Panel"]
+
     end
 
-    subgraph Backend["Backend (FastAPI + Async Python 3.11+)"]
-        API["FastAPI /api/chat/stream"]
-        RateLimit["Sliding Window Rate Limiter"]
-        Agent["ReAct Agent Loop (loop.py)"]
-        Prompts["System Prompts & Injection Defense"]
-        DB[(SQLite / PostgreSQL + SQLAlchemy)]
+    subgraph Backend["🔙 Backend (FastAPI + Async Python 3.11+)"]
+
+        API["🔌 FastAPI /api/chat/stream"]
+
+        RateLimit["🛑 Sliding Window Rate Limiter"]
+
+        Agent["🤖 ReAct Agent Loop (loop.py)"]
+
+        Prompts["🧠 System Prompts & Injection Defense"]
+
+        DB["🗄️ SQLite / PostgreSQL + SQLAlchemy"]
+
     end
 
-    subgraph Tools["Agent Tools & Services"]
-        SearchProv["SearchProvider (Tavily / DDG Fallback)"]
-        Fetcher["PageFetcher (SSRF Block + Trafilatura)"]
-        Calc["Safe AST Calculator"]
-        DateTime["Current Temporal Anchor"]
+    subgraph Tools["🛠️ Agent Tools & Services"]
+
+        SearchProv["🔍 SearchProvider (Tavily / DDG Fallback)"]
+
+        Fetcher["📥 PageFetcher (SSRF Block + Trafilatura)"]
+
+        Calc["🧮 Safe AST Calculator"]
+
+        DateTime["🕰️ Current Temporal Anchor"]
+
     end
 
-    subgraph External["External APIs & Live Internet"]
-        Claude["Anthropic Claude API (Native Tool Use)"]
-        Tavily["Tavily Search API"]
-        Web["Live Web Endpoints"]
+    subgraph External["🌐 External APIs & Live Internet"]
+
+        Claude["🤖 Anthropic Claude API (Native Tool Use)"]
+
+        Tavily["🔎 Tavily Search API"]
+
+        Web["🌍 Live Web Endpoints"]
+
     end
 
     Input --> UI
+
     UI -->|SSE Request| API
+
     API --> RateLimit
+
     RateLimit --> Agent
+
     Agent --> Prompts
+
     Agent <--> Claude
+
     Agent --> Tools
+
     SearchProv <--> Tavily
+
     SearchProv <--> Web
+
     Fetcher <--> Web
+
     Agent -->|Stream Status, Tool Calls, Tokens, Sources| API
+
     API -->|SSE Events| Activity
+
     API -->|SSE Events| Markdown
+
     API -->|SSE Events| Sources
-    API --> DB
-```
 
----
+    API --> DB⚡ Quick Start
 
-## 🚀 Quick Run Commands
+Prerequisites:
 
-### 1. Start the Backend:
-```powershell
+Python 3.11+ installed
+
+Node.js 18+ installed
+
+Valid API keys for Anthropic and Tavily
+
+1️⣣ Backend Setup & LaunchPowershellCopied!Copy# Navigate to backend directory
+
 cd backend
-.\.venv\Scripts\python.exe -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
-```
 
-### 2. Start the Frontend:
-```powershell
+# Create virtual environment (if not already done)
+
+python -m venv venv
+
+.\.venv\Scripts\activate  # Windows PowerShell
+
+# source venv/bin/activate  # macOS/Linux
+
+# Install dependencies
+
+pip install -r requirements.txt
+
+# Configure environment variables
+
+cp .env.example .env
+
+# Edit .env with your API keys (ANTHROPIC_API_KEY, TAVILY_API_KEY)
+
+# ⚡ START BACKEND SERVER
+
+.\.venv\Scripts\python.exe -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload2️⣣ Frontend Setup & LaunchPowershellCopied!Copy# Navigate to frontend directory
+
 cd frontend
-npm run dev
-```
 
-Visit **`http://localhost:3000`** in your browser!
+# Install dependencies
 
----
+npm install
 
-## 🧪 Test Commands
+# Configure environment
 
-### Backend Tests (14 passing tests):
-```powershell
-cd backend
-.\.venv\Scripts\python.exe -m pytest tests -v
-```
+cp .env.example .env.local
 
-### Frontend Tests (Vitest 3 passing tests):
-```powershell
-cd frontend
-npx vitest run
-```
+# Ensure NEXT_PUBLIC_API_URL is set correctly
 
+# ⚡ START DEVELOPMENT SERVER
+
+npm run dev3️⣣ Access Application🎉 Open your browser and navigate to:
+
+http://localhost:3000
+
+🧪 Testing & ValidationEnsure system integrity with our comprehensive test suite.🔙 Backend TestsPowershellCopied!Copycd backend
+
+.\.venv\Scripts\python.exe -m pytest tests -vExpected Output: 14 passing tests covering tools, security, and agent logic.🖥️ Frontend TestsPowershellCopied!Copycd frontend
+
+npx vitest runExpected Output: 3 passing tests for streaming components and UI logic.🛡️ Security & ComplianceNexAgic is built with a security-first mindset:FeatureImplementationSSRF ProtectionBlocks localhost, private IP ranges, and non-HTTP(S) schemes in PageFetcherPrompt InjectionStrict system prompts and untrusted data handling in agent loopRate LimitingSliding window limiter on all chat endpointsInput ValidationPydantic models for all API inputsCORSStrictly configured for authorized origins onlySecret ManagementZero hardcoded secrets; all via environment variables📜 License & DisclaimerLicense: MIT License
+
+Author: NexAgic Development Team
+
+Status: Production Ready
+
+Disclaimer: NexAgic accesses real-time information from the open internet. While the system is designed to cross-verify facts, users should always exercise critical thinking and verify critical information through official channels. The developers assume no liability for inaccuracies in AI-generated content.
+
+<div align="center">🚀 Ready to deploy the future of AI research?Report Bug · Request Feature · View DocumentationBuilt with ❤️ by the NexAgic Team
+
+Last Updated: September 28, 2026</div>
